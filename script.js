@@ -15,12 +15,28 @@ function getSize() {
 
 function createGrid(rows, columns) {
     const sizeOfSquare = (500/rows).toString()
+    let isDragging = false;
+
     for (let i = 0; i < rows; i++) {
         for (let j = 0; j < columns; j++) {
             let squareDiv = document.createElement("div");
-            squareDiv.addEventListener('mouseover', () => {
+
+            // Click and drag to draw on squareDiv
+            squareDiv.addEventListener('mousedown', () => {
+                isDragging = true;
                 squareDiv.style.backgroundColor = 'blue';
             })
+
+            squareDiv.addEventListener('mousemove', () => {
+                if (isDragging) {
+                    squareDiv.style.backgroundColor = 'blue';
+                }
+            })
+
+            container.addEventListener('mouseup', () => {
+                isDragging = false;
+            })
+
             squareDiv.classList.add("squareDiv");
     
             squareDiv.style.left = j * sizeOfSquare + "px";
